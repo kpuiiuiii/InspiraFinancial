@@ -1,3 +1,4 @@
+@Max
 Feature: Wiki search feature
 
 
