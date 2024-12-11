@@ -1,7 +1,7 @@
-# Inspira Financial Contact Us Form Automation
+# Inspira Financial Automation
 
 ## Project Overview
-This is a Selenium WebDriver-based test automation project for validating the Contact Us form on the Veeva website using Cucumber BDD framework.
+This is a Selenium WebDriver-based test automation project.
 
 ## Tech Stack
 - Java
@@ -28,18 +28,6 @@ This is a Selenium WebDriver-based test automation project for validating the Co
 3. Configure `browser` property in configuration file
 4. Run tests using `mvn test`
 
-## Test Scenario
-The project includes a happy path scenario for submitting the Contact Us form, which:
-- Navigates to Contact Us page
-- Clicks Contact Sales dropdown
-- Fills form with valid test data
-- Submits the form
-- Validates success/error message
-
-## Key Test Validations
-- Form submission with generated fake data
-- Email validation
-- Dropdown interactions
 
 ## Configuration
 Browser selection and other configurations can be managed through the configuration reader utility.
