@@ -4,12 +4,16 @@ import com.project.pages.RedfinMainPage;
 import com.project.pages.RedfinSearchRestultsPage;
 import com.project.utilities.BrowserUtils;
 import com.project.utilities.Driver;
+import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,47 +25,58 @@ public class test {
     RedfinSearchRestultsPage rfs;
 
     Actions action;
+    WebDriverWait wait;
 
+    Actions actions;
 
     @Test
-    public void test1() {
+    public void test1() throws InterruptedException {
+        Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(3));
 
         rf = new RedfinMainPage();
         rfs = new RedfinSearchRestultsPage();
 
-
         Driver.getDriver().get("https://www.redfin.com/");
 
-        Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-
+        wait.until(ExpectedConditions.elementToBeClickable(rf.redfinSearchField));
         rf.redfinSearchField.click();
         rf.redfinSearchField.sendKeys("Chicago");
-
         rf.redfinSearchButton.click();
 
-        rfs.priceDropdownButton.click();
 
+        rfs.priceDropdownButton.click();
         rfs.minField.sendKeys("200000");
         rfs.maxField.sendKeys("300000");
+        action = new Actions(Driver.getDriver());
+        action.clickAndHold(rfs.searchDoneButton).pause(1111).perform();
 
-        rfs.searchDoneButton.click();
-
-        List<String> list = new ArrayList<>();
 
 
         List<String> arrayList = BrowserUtils.getElementsText(rfs.allPrices);
 
         rfs.secondPageButton.click();
 
+
         arrayList.addAll(BrowserUtils.getElementsText(rfs.allPrices));
 
+        System.out.println("arrayList = " + arrayList);
+
         for (String word : arrayList) {
-            //Integer.parseInt(word.replace("$", "").replace(","));
+            int integerNum = Integer.parseInt(word.replace("$", "").replace(",", ""));
+            if (integerNum > 300000) {
+                Assert.fail("more then 300000");
+
+            } else if (integerNum < 200000) {
+                Assert.fail("less then 200000");
+            } else {
+                Assert.assertTrue(true);
+            }
 
         }
+        Driver.getDriver().close();
+
 
     }
-
 
 }

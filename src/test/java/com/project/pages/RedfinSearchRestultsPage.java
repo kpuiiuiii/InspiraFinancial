@@ -13,7 +13,6 @@ public class RedfinSearchRestultsPage {
     }
 
 
-
     @FindBy(xpath = "//div[@class='RichSelect__label flex align-center']/p[contains(text(), 'Price')]")
     public WebElement priceDropdownButton;
 
@@ -33,8 +32,6 @@ public class RedfinSearchRestultsPage {
 
     @FindBy(xpath = "//div[@class='flex align-center']/a/span[contains(text(), '2')]")
     public WebElement secondPageButton;
-
-
 
 
 }
